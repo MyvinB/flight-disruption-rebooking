@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BookingsTable from '../components/BookingsTable.vue'
 import type { Journey, Recommendation, TransportOption } from '../api'
+import { apiResponse } from './fixtures'
 
 const ext1: TransportOption = {
   offerId: 'EXT-1',
@@ -106,5 +107,59 @@ describe('BookingsTable', () => {
 
     const rows = wrapper.findAll('[data-test="booking-row"]')
     expect(rows.map((r) => r.find('.mono').text())).toEqual(['AL0SAU', 'NOSEAT'])
+  })
+
+  describe('with the real API response for the mock data', () => {
+    const mountReal = () => {
+      const data = apiResponse()
+      return mount(BookingsTable, {
+        props: { recommendations: data.recommendations, routes: Object.keys(data.transportOptions) },
+      })
+    }
+
+    it('shows all 48 bookings until a route is chosen', () => {
+      expect(mountReal().findAll('[data-test="booking-row"]')).toHaveLength(48)
+    })
+
+    it('recommends the Palma passengers INT-8 via the Palma to Berlin route', async () => {
+      const wrapper = mountReal()
+      await wrapper.find('[data-test="route-filter"]').setValue('PMI#BER')
+
+      const rows = wrapper.findAll('[data-test="booking-row"]')
+      expect(rows).toHaveLength(12)
+      rows.forEach((row) => {
+        expect(row.text()).toContain('Lufthansa Group')
+        expect(row.text()).toContain('21 Jul 23:05')
+      })
+    })
+
+    it('shows the Dubai passengers arriving 15 minutes earlier than planned', async () => {
+      const wrapper = mountReal()
+      await wrapper.find('[data-test="route-filter"]').setValue('CGN#DXB')
+
+      const rows = wrapper.findAll('[data-test="booking-row"]')
+      expect(rows).toHaveLength(12)
+      rows.forEach((row) => expect(row.find('[data-test="delay"]').text()).toBe('15m earlier'))
+    })
+
+    it('shows every booking again when going back to all routes', async () => {
+      const wrapper = mountReal()
+      await wrapper.find('[data-test="route-filter"]').setValue('CGN#BER')
+      expect(wrapper.findAll('[data-test="booking-row"]')).toHaveLength(24)
+
+      await wrapper.find('[data-test="route-filter"]').setValue('ALL')
+      expect(wrapper.findAll('[data-test="booking-row"]')).toHaveLength(48)
+    })
+  })
+
+  it('shows no delay when the original journey has no segments', () => {
+    const wrapper = mount(BookingsTable, {
+      props: {
+        recommendations: { EMPTY: { passengers: 1, journey: { ...toBerlin, segments: [] }, transport: ext1 } },
+        routes: ['CGN#BER'],
+      },
+    })
+
+    expect(wrapper.find('[data-test="delay"]').exists()).toBe(false)
   })
 })

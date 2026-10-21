@@ -12,3 +12,7 @@ node_modules/
 *.iml
 .vscode/
 .DS_Store
+
+# Coverage / Sonar output
+coverage/
+.scannerwork/

@@ -50,10 +50,24 @@ curl http://localhost:8080/api/disruption-options
 ### Tests
 
 ```bash
-cd backend && ./mvnw test     # normalization, ranking, endpoint (8 tests)
-cd frontend && npm test                 # formatting, bookings table (9 tests)
+cd backend && ./mvnw test               # adapters, normalizers, sources, ranking, orchestration, endpoint (87 tests)
+cd frontend && npm test                 # formatting, API client, every component, app states (45 tests)
 cd frontend && npm run build            # type-check + production build
 ```
+
+### Code coverage and Sonar
+
+```bash
+cd backend && ./mvnw verify             # JaCoCo → backend/target/site/jacoco/index.html (+ jacoco.xml)
+cd frontend && npm run coverage         # V8 → frontend/coverage/index.html (+ lcov.info)
+```
+
+`sonar-project.properties` analyses both projects together and imports both coverage reports. The GitHub Actions
+workflow (`.github/workflows/sonar.yml`) runs the tests and coverage on every push and pull request, then the SonarCloud
+scan. To enable the scan, import the repository on [sonarcloud.io](https://sonarcloud.io), check that
+`sonar.organization` and `sonar.projectKey` match the values SonarCloud shows, turn off *Automatic Analysis* (it
+cannot import coverage), and add the token as the repository secret `SONAR_TOKEN`. Until the secret exists, the workflow
+still runs the tests and skips the scan.
 
 ### Configuration (`backend/src/main/resources/application.properties`)
 
@@ -145,6 +159,21 @@ short seat hold. Whoever is too late receives a conflict and moves to the next o
 recommendations fit together. Done naively (first booking wins), it hands out early seats by an arbitrary rule. Done
 properly, with an explicit priority policy and a reason per recommendation, it is the next step I would take (see
 *Future improvements*, item 2).
+
+### Error handling
+A slow or failing **transport source is not an error**: it is left out and the response is built from the others.
+Everything else goes through one `@RestControllerAdvice` (`GlobalExceptionHandler`), which answers with RFC 7807
+`application/problem+json` and a stable `code` that clients can react to:
+
+| Situation | Status | `code` |
+|---|---|---|
+| Disruption data cannot be loaded | 503 | `DISRUPTION_DATA_UNAVAILABLE` |
+| Disruption data is invalid (missing journey, no passengers, duplicate `bookingRef`) | 500 | `INVALID_DISRUPTION_DATA` |
+| Anything unexpected (logged with stack trace, no internals in the response) | 500 | `INTERNAL_ERROR` |
+| Unknown path / wrong HTTP method | 404 / 405 | (Spring default problem) |
+
+The disruption data is validated when loaded, so bad data fails with a clear message instead of a
+`NullPointerException` deep in the ranking. The UI shows the problem's `detail` and offers *Try again*.
 
 ### UI
 - **Kept simple, as the brief asks:**

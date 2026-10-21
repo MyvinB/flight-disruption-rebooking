@@ -65,10 +65,28 @@ export interface DisruptionOptionsResponse {
   recommendations: Record<string, Recommendation> // keyed by bookingRef
 }
 
+/** RFC 7807 error body returned by the backend (application/problem+json). */
+export interface Problem {
+  status: number
+  title?: string
+  detail?: string
+  code?: string
+}
+
 export async function fetchDisruptionOptions(): Promise<DisruptionOptionsResponse> {
   const response = await fetch('/api/disruption-options')
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`)
+    const problem = await readProblem(response)
+    throw new Error(`${problem?.detail ?? 'Request failed'} (status ${response.status})`)
   }
   return response.json()
+}
+
+/** The problem body if there is one; proxies and gateways may answer with HTML or nothing. */
+async function readProblem(response: Response): Promise<Problem | null> {
+  try {
+    return (await response.json()) as Problem
+  } catch {
+    return null
+  }
 }

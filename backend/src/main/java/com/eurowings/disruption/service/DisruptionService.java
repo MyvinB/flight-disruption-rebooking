@@ -4,6 +4,8 @@ import com.eurowings.disruption.dto.DisruptionOptionsResponse;
 import com.eurowings.disruption.dto.DisruptionSummaryDto;
 import com.eurowings.disruption.dto.RecommendationDto;
 import com.eurowings.disruption.dto.TransportOptionDto;
+import com.eurowings.disruption.exception.DisruptionDataUnavailableException;
+import com.eurowings.disruption.exception.InvalidDisruptionDataException;
 import com.eurowings.disruption.mock.ExternalFlightsMock;
 import com.eurowings.disruption.mock.InternalFlightsMock;
 import com.eurowings.disruption.mock.JsonResourceReader;
@@ -19,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.UncheckedIOException;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -72,7 +76,7 @@ public class DisruptionService {
     }
 
     public DisruptionOptionsResponse getDisruptionOptions() {
-        DisruptionData data = reader.read(DISRUPTION_RESOURCE, DisruptionData.class);
+        DisruptionData data = loadDisruption();
         Set<Route> routes = routesOf(data.getBookings());
         List<Transport> options = fetchAllOptions(routes);
 
@@ -97,7 +101,7 @@ public class DisruptionService {
                                 a.booking().getJourney(),
                                 a.transport().map(toDto).orElse(null)),
                         (a, b) -> {
-                            throw new IllegalStateException("Duplicate bookingRef in disruption data");
+                            throw new InvalidDisruptionDataException("Duplicate bookingRef in disruption data");
                         },
                         LinkedHashMap::new));
 
@@ -105,6 +109,42 @@ public class DisruptionService {
                 DisruptionSummaryDto.from(data.getDisruption()),
                 transportOptions,
                 recommendations);
+    }
+
+    private DisruptionData loadDisruption() {
+        DisruptionData data;
+        try {
+            data = reader.read(DISRUPTION_RESOURCE, DisruptionData.class);
+        } catch (UncheckedIOException e) {
+            throw new DisruptionDataUnavailableException("Could not load " + DISRUPTION_RESOURCE, e);
+        }
+        validate(data);
+        return data;
+    }
+
+    /**
+     * Fails fast on data the search and ranking cannot work with, instead of a NullPointerException later on.
+     */
+    private static void validate(DisruptionData data) {
+        if (data == null || data.getDisruption() == null || data.getBookings() == null) {
+            throw new InvalidDisruptionDataException("Disruption or bookings missing");
+        }
+        Set<String> bookingRefs = new HashSet<>();
+        for (DisruptionData.Booking booking : data.getBookings()) {
+            DisruptionData.Journey journey = booking.getJourney();
+            if (booking.getBookingRef() == null || journey == null
+                    || journey.getOrigin() == null || journey.getDestination() == null) {
+                throw new InvalidDisruptionDataException(
+                        "Booking " + booking.getBookingRef() + " has no reference or journey");
+            }
+            if (booking.getPassengers() <= 0) {
+                throw new InvalidDisruptionDataException(
+                        "Booking " + booking.getBookingRef() + " has no passengers");
+            }
+            if (!bookingRefs.add(booking.getBookingRef())) {
+                throw new InvalidDisruptionDataException("Duplicate bookingRef " + booking.getBookingRef());
+            }
+        }
     }
 
     /**

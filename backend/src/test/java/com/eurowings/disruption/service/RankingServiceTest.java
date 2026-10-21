@@ -1,14 +1,24 @@
 package com.eurowings.disruption.service;
 
+import com.eurowings.disruption.MockData;
 import com.eurowings.disruption.model.Leg;
 import com.eurowings.disruption.model.Transport;
 import com.eurowings.disruption.model.TransportMode;
+import com.eurowings.disruption.normalizer.ExternalFlightNormalizer;
+import com.eurowings.disruption.normalizer.InternalFlightNormalizer;
+import com.eurowings.disruption.normalizer.TrainNormalizer;
 import com.eurowings.disruption.raw.DisruptionData;
+import com.eurowings.disruption.raw.ExternalFlightsRaw;
+import com.eurowings.disruption.raw.InternalFlightsRaw;
+import com.eurowings.disruption.raw.TrainsRaw;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -65,6 +75,106 @@ class RankingServiceTest {
 
         assertThat(result.get(0).transport()).contains(toDxb);
         assertThat(result.get(1).transport()).isEmpty();
+    }
+
+    @Test
+    void partyExactlyFillingTheSeatsFits() {
+        Transport exact = option("EXACT", TransportMode.EXTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 4);
+
+        assertThat(rankingService.rank(List.of(booking("A", 4, "CGN", "BER")), List.of(exact)).get(0).transport())
+                .contains(exact);
+    }
+
+    @Test
+    void optionsWithoutSeatsAreNeverRecommended() {
+        Transport soldOut = option("SOLD_OUT", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T20:00:00+02:00", 0);
+
+        assertThat(rankingService.rank(List.of(booking("A", 1, "CGN", "BER")), List.of(soldOut)).get(0).transport())
+                .isEmpty();
+    }
+
+    @Test
+    void noRecommendationWhenThePartyIsLargerThanEveryOption() {
+        Transport small = option("SMALL", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T21:00:00+02:00", 3);
+
+        List<BookingAllocation> result = rankingService.rank(List.of(booking("A", 4, "CGN", "BER")), List.of(small));
+
+        assertThat(result).singleElement().satisfies(a -> assertThat(a.transport()).isEmpty());
+        assertThat(rankingService.suggestedPassengers(result)).isEmpty();
+    }
+
+    @Test
+    void noOptionsAtAllGivesEveryBookingAnEmptyRecommendation() {
+        List<BookingAllocation> result = rankingService.rank(
+                List.of(booking("A", 1, "CGN", "BER"), booking("B", 2, "CGN", "DXB")), List.of());
+
+        assertThat(result).extracting(BookingAllocation::transport).containsOnly(Optional.empty());
+    }
+
+    @Test
+    void comparesArrivalInstantsAcrossTimeZones() {
+        // 06:05 in Dubai is 04:05 in Berlin, so it arrives before 05:00 Berlin time
+        Transport dubaiLocal = option("DXB_LOCAL", TransportMode.TRAIN, "CGN", "DXB", "2026-07-22T06:05:00+04:00", 10);
+        Transport berlinLocal = option("BER_LOCAL", TransportMode.INTERNAL_FLIGHT, "CGN", "DXB", "2026-07-22T05:00:00+02:00", 10);
+
+        assertThat(rankingService.rank(List.of(booking("A", 1, "CGN", "DXB")), List.of(berlinLocal, dubaiLocal))
+                .get(0).transport()).contains(dubaiLocal);
+    }
+
+    @Test
+    void keepsTheBookingOrder() {
+        Transport option = option("O", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10);
+
+        assertThat(rankingService.rank(
+                List.of(booking("Z", 1, "CGN", "BER"), booking("A", 1, "CGN", "BER")), List.of(option)))
+                .extracting(a -> a.booking().getBookingRef()).containsExactly("Z", "A");
+    }
+
+    @Test
+    void recommendsTheEarliestOptionPerRouteForTheMockData() {
+        List<BookingAllocation> result = rankingService.rank(mockBookings(), mockOptions());
+
+        assertThat(result).hasSize(48).allSatisfy(a -> assertThat(a.transport()).isPresent());
+        assertThat(result).allSatisfy(a -> {
+            String route = a.booking().getJourney().getOrigin() + "#" + a.booking().getJourney().getDestination();
+            String expected = switch (route) {
+                case "CGN#BER" -> "EXT-1"; // 21:50, before INT-1 at 22:40
+                case "CGN#DXB" -> "EXT-3"; // 06:05 Dubai time, 5 minutes before INT-5
+                case "PMI#BER" -> "INT-8"; // 23:05
+                default -> throw new AssertionError("Unexpected route " + route);
+            };
+            assertThat(a.transport().orElseThrow().getOfferId()).isEqualTo(expected);
+        });
+        assertThat(rankingService.suggestedPassengers(result))
+                .containsExactlyInAnyOrderEntriesOf(Map.of("EXT-1", 60, "EXT-3", 30, "INT-8", 30));
+    }
+
+    @Test
+    void largePartyFallsBackToTheNextOptionWithEnoughSeatsInTheMockData() {
+        // EXT-3 has 9 seats, so a party of 10 gets INT-5 (06:10, 20 seats)
+        Transport best = rankingService.rank(List.of(booking("BIG", 10, "CGN", "DXB")), mockOptions())
+                .get(0).transport().orElseThrow();
+
+        assertThat(best.getOfferId()).isEqualTo("INT-5");
+    }
+
+    @Test
+    void routeWithoutAnyMockOptionGetsNoRecommendation() {
+        assertThat(rankingService.rank(List.of(booking("X", 1, "DUS", "DXB")), mockOptions()).get(0).transport())
+                .isEmpty();
+    }
+
+    private static List<DisruptionData.Booking> mockBookings() {
+        return MockData.read("disruption.json", DisruptionData.class).getBookings();
+    }
+
+    private static List<Transport> mockOptions() {
+        return Stream.of(
+                        new InternalFlightNormalizer().normalize(MockData.read("internal-flights.json", InternalFlightsRaw.class)),
+                        new ExternalFlightNormalizer().normalize(MockData.read("external-flights.json", ExternalFlightsRaw.class)),
+                        new TrainNormalizer().normalize(MockData.read("trains.json", TrainsRaw.class)))
+                .flatMap(List::stream)
+                .toList();
     }
 
     private static DisruptionData.Booking booking(String ref, int passengers, String origin, String destination) {

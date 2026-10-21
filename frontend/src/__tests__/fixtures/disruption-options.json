@@ -1,0 +1,2550 @@
+{
+  "disruption": {
+    "flight": "EW 4711",
+    "origin": "CGN",
+    "destination": "BER",
+    "scheduledDeparture": "2026-07-21T18:35:00+02:00",
+    "scheduledArrival": "2026-07-21T19:45:00+02:00",
+    "status": "CANCELLED",
+    "reason": "technical",
+    "affectedBookings": 48,
+    "affectedPassengers": 120
+  },
+  "transportOptions": {
+    "CGN#BER": [
+      {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-1",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T19:40:00+02:00",
+        "arrival": "2026-07-21T22:40:00+02:00",
+        "totalSeats": 44,
+        "suggestedPassengers": 0,
+        "priceEur": 214.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "CGN",
+            "to": "FRA",
+            "number": "1975"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "FRA",
+            "to": "BER",
+            "number": "186"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-2",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:10:00+02:00",
+        "arrival": "2026-07-21T23:10:00+02:00",
+        "totalSeats": 21,
+        "suggestedPassengers": 0,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "CGN",
+            "to": "MUC",
+            "number": "1991"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "MUC",
+            "to": "BER",
+            "number": "2046"
+          }
+        ]
+      },
+      {
+        "offerId": "TRN-1",
+        "source": "TRAIN",
+        "operator": "RheinSpree Express",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T00:18:00+02:00",
+        "totalSeats": 110,
+        "suggestedPassengers": 0,
+        "priceEur": 89.9,
+        "legs": [
+          {
+            "operatorName": "RheinSpree Express",
+            "operatorCode": "RX",
+            "from": "CGN",
+            "to": "BER",
+            "number": "1024"
+          }
+        ]
+      },
+      {
+        "offerId": "TRN-2",
+        "source": "TRAIN",
+        "operator": "RheinSpree Express",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:55:00+02:00",
+        "arrival": "2026-07-22T01:32:00+02:00",
+        "totalSeats": 95,
+        "suggestedPassengers": 0,
+        "priceEur": 79.9,
+        "legs": [
+          {
+            "operatorName": "RheinSpree Express",
+            "operatorCode": "RX",
+            "from": "CGN",
+            "to": "BER",
+            "number": "1188"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-3",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-22T07:15:00+02:00",
+        "arrival": "2026-07-22T08:25:00+02:00",
+        "totalSeats": 74,
+        "suggestedPassengers": 0,
+        "priceEur": 129.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "CGN",
+            "to": "BER",
+            "number": "4718"
+          }
+        ]
+      },
+      {
+        "offerId": "TRN-3",
+        "source": "TRAIN",
+        "operator": "RheinSpree Express",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-22T05:48:00+02:00",
+        "arrival": "2026-07-22T10:05:00+02:00",
+        "totalSeats": 242,
+        "suggestedPassengers": 0,
+        "priceEur": 69.9,
+        "legs": [
+          {
+            "operatorName": "RheinSpree Express",
+            "operatorCode": "RX",
+            "from": "CGN",
+            "to": "BER",
+            "number": "1002"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-4",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-22T09:25:00+02:00",
+        "arrival": "2026-07-22T13:35:00+02:00",
+        "totalSeats": 52,
+        "suggestedPassengers": 0,
+        "priceEur": 244.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "6440"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "VIE",
+            "to": "BER",
+            "number": "6351"
+          }
+        ]
+      }
+    ],
+    "CGN#DXB": [
+      {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-5",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:40:00+02:00",
+        "arrival": "2026-07-22T06:10:00+04:00",
+        "totalSeats": 20,
+        "suggestedPassengers": 0,
+        "priceEur": 486.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "CGN",
+            "to": "FRA",
+            "number": "1975"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "FRA",
+            "to": "DXB",
+            "number": "630"
+          }
+        ]
+      },
+      {
+        "offerId": "EXT-4",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Zephyr Jet",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T21:05:00+02:00",
+        "arrival": "2026-07-22T12:40:00+04:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 0,
+        "priceEur": 288.0,
+        "legs": [
+          {
+            "operatorName": "Zephyr Jet",
+            "operatorCode": "ZJ",
+            "from": "CGN",
+            "to": "ATH",
+            "number": "4102"
+          },
+          {
+            "operatorName": "Zephyr Jet",
+            "operatorCode": "ZJ",
+            "from": "ATH",
+            "to": "DXB",
+            "number": "660"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-7",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Swiss",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-22T09:40:00+02:00",
+        "arrival": "2026-07-22T22:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 0,
+        "priceEur": 512.0,
+        "legs": [
+          {
+            "operatorName": "Swiss",
+            "operatorCode": "LX",
+            "from": "CGN",
+            "to": "ZRH",
+            "number": "1075"
+          },
+          {
+            "operatorName": "Swiss",
+            "operatorCode": "LX",
+            "from": "ZRH",
+            "to": "DXB",
+            "number": "242"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-6",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T20:10:00+02:00",
+        "arrival": "2026-07-22T23:20:00+04:00",
+        "totalSeats": 33,
+        "suggestedPassengers": 0,
+        "priceEur": 421.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "CGN",
+            "to": "MUC",
+            "number": "1991"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "MUC",
+            "to": "DXB",
+            "number": "638"
+          }
+        ]
+      }
+    ],
+    "PMI#BER": [
+      {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      },
+      {
+        "offerId": "EXT-5",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T21:10:00+02:00",
+        "arrival": "2026-07-21T23:55:00+02:00",
+        "totalSeats": 8,
+        "suggestedPassengers": 0,
+        "priceEur": 209.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "PMI",
+            "to": "BER",
+            "number": "512"
+          }
+        ]
+      },
+      {
+        "offerId": "EXT-6",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Borealis Air",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T19:45:00+02:00",
+        "arrival": "2026-07-22T00:10:00+02:00",
+        "totalSeats": 31,
+        "suggestedPassengers": 0,
+        "priceEur": 247.0,
+        "legs": [
+          {
+            "operatorName": "Borealis Air",
+            "operatorCode": "BX",
+            "from": "PMI",
+            "to": "HAM",
+            "number": "771"
+          },
+          {
+            "operatorName": "Borealis Air",
+            "operatorCode": "BX",
+            "from": "HAM",
+            "to": "BER",
+            "number": "28"
+          }
+        ]
+      },
+      {
+        "offerId": "INT-9",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Lufthansa",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-22T06:55:00+02:00",
+        "arrival": "2026-07-22T11:20:00+02:00",
+        "totalSeats": 40,
+        "suggestedPassengers": 0,
+        "priceEur": 232.0,
+        "legs": [
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "PMI",
+            "to": "FRA",
+            "number": "1155"
+          },
+          {
+            "operatorName": "Lufthansa",
+            "operatorCode": "LH",
+            "from": "FRA",
+            "to": "BER",
+            "number": "190"
+          }
+        ]
+      }
+    ]
+  },
+  "recommendations": {
+    "D3HRVC": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "QLCOCS": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "AL0SAU": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "PER8MN": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "AJWFFO": {
+      "passengers": 4,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "R94TM2": {
+      "passengers": 4,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "LPXKFE": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "VSAB7W": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "F157O4": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "G8CZ3W": {
+      "passengers": 1,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "U245X8": {
+      "passengers": 2,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "LUN241": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "KHTLPM": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "HEQZ1S": {
+      "passengers": 2,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "YJ6SI5": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "YH8JER": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "A14EM1": {
+      "passengers": 4,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "KXMLSH": {
+      "passengers": 1,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "N4U8QL": {
+      "passengers": 1,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "J20MWF": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "NSW1TL": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "Y9CFUF": {
+      "passengers": 3,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "ZVUOWN": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "FUTD4C": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "ZC1Q77": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "W3AJB0": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "S5CDBA": {
+      "passengers": 4,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "X8IFE8": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "X1UJ9G": {
+      "passengers": 2,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "L5EYKY": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "HLM9LJ": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "NFKZTZ": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "KZ2SK8": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "H0DH7X": {
+      "passengers": 3,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "M0QHGY": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "DP5SYK": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "PZ5OLD": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "Z3RISV": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "SN9F61": {
+      "passengers": 3,
+      "journey": {
+        "origin": "PMI",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 9585",
+            "from": "PMI",
+            "to": "CGN",
+            "departure": "2026-07-21T15:05:00+02:00",
+            "arrival": "2026-07-21T17:20:00+02:00",
+            "status": "NOT_DEPARTED"
+          },
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "INT-8",
+        "source": "INTERNAL_FLIGHT",
+        "operator": "Eurowings",
+        "origin": "PMI",
+        "destination": "BER",
+        "departure": "2026-07-21T20:30:00+02:00",
+        "arrival": "2026-07-21T23:05:00+02:00",
+        "totalSeats": 26,
+        "suggestedPassengers": 30,
+        "priceEur": 179.0,
+        "legs": [
+          {
+            "operatorName": "Eurowings",
+            "operatorCode": "EW",
+            "from": "PMI",
+            "to": "BER",
+            "number": "4839"
+          }
+        ]
+      }
+    },
+    "EWNY48": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "THOTV2": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "PKAEGI": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "HYIPYW": {
+      "passengers": 2,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "WI382E": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    },
+    "KYJ3Z0": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "K47DWM": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "VEXNFY": {
+      "passengers": 1,
+      "journey": {
+        "origin": "CGN",
+        "destination": "DXB",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          },
+          {
+            "flight": "EW 2590",
+            "from": "BER",
+            "to": "DXB",
+            "departure": "2026-07-21T21:40:00+02:00",
+            "arrival": "2026-07-22T06:20:00+04:00",
+            "status": "WILL_BE_MISSED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-3",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Meridian Air",
+        "origin": "CGN",
+        "destination": "DXB",
+        "departure": "2026-07-21T19:55:00+02:00",
+        "arrival": "2026-07-22T06:05:00+04:00",
+        "totalSeats": 9,
+        "suggestedPassengers": 30,
+        "priceEur": 424.0,
+        "legs": [
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "CGN",
+            "to": "VIE",
+            "number": "442"
+          },
+          {
+            "operatorName": "Meridian Air",
+            "operatorCode": "MD",
+            "from": "VIE",
+            "to": "DXB",
+            "number": "86"
+          }
+        ]
+      }
+    },
+    "HD08OT": {
+      "passengers": 3,
+      "journey": {
+        "origin": "CGN",
+        "destination": "BER",
+        "segments": [
+          {
+            "flight": "EW 4711",
+            "from": "CGN",
+            "to": "BER",
+            "departure": "2026-07-21T18:35:00+02:00",
+            "arrival": "2026-07-21T19:45:00+02:00",
+            "status": "CANCELLED"
+          }
+        ]
+      },
+      "transport": {
+        "offerId": "EXT-1",
+        "source": "EXTERNAL_FLIGHT",
+        "operator": "Nimbus Airways",
+        "origin": "CGN",
+        "destination": "BER",
+        "departure": "2026-07-21T20:40:00+02:00",
+        "arrival": "2026-07-21T21:50:00+02:00",
+        "totalSeats": 24,
+        "suggestedPassengers": 60,
+        "priceEur": 189.0,
+        "legs": [
+          {
+            "operatorName": "Nimbus Airways",
+            "operatorCode": "NB",
+            "from": "CGN",
+            "to": "BER",
+            "number": "88"
+          }
+        ]
+      }
+    }
+  }
+}

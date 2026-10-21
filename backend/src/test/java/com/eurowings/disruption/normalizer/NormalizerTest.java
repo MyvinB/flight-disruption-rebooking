@@ -1,5 +1,6 @@
 package com.eurowings.disruption.normalizer;
 
+import com.eurowings.disruption.MockData;
 import com.eurowings.disruption.model.Leg;
 import com.eurowings.disruption.model.Transport;
 import com.eurowings.disruption.model.TransportMode;
@@ -13,9 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class NormalizerTest {
 
@@ -61,6 +64,69 @@ class NormalizerTest {
         assertThat(trn1.getAmountInEuro()).isEqualByComparingTo("89.90");
         assertThat(trn1.getArrEstTime()).isEqualTo(OffsetDateTime.parse("2026-07-22T00:18:00+02:00"));
         assertThat(trn1.getLegs()).containsExactly(new Leg("RheinSpree Express", "RX", "CGN", "BER", "1024"));
+    }
+
+    @Test
+    void externalNormalizerKeepsOffersFromOtherAirports() throws IOException {
+        // Route filtering is the search's job: EXT-2 departs from DUS and is still normalized here
+        List<Transport> options = new ExternalFlightNormalizer().normalize(read("external-flights.json", ExternalFlightsRaw.class));
+
+        assertThat(byId(options, "EXT-2").getOrigin()).isEqualTo("DUS");
+    }
+
+    @Test
+    void trainQueriesWithoutConnectionsContributeNothing() throws IOException {
+        TrainsRaw raw = read("trains.json", TrainsRaw.class);
+        // CGN -> DXB and PMI -> BER have no train connections in the mock data
+        raw.setQueries(raw.getQueries().subList(1, 3));
+
+        assertThat(new TrainNormalizer().normalize(raw)).isEmpty();
+    }
+
+    @Test
+    void internalSearchesWithoutOffersAreSkipped() throws IOException {
+        InternalFlightsRaw raw = read("internal-flights.json", InternalFlightsRaw.class);
+        raw.getSearches().get(0).setOffers(null);
+
+        List<Transport> options = new InternalFlightNormalizer().normalize(raw);
+
+        // The 4 CGN -> BER offers are gone, the other searches are still normalized
+        assertThat(options).extracting(Transport::getOfferId)
+                .containsExactly("INT-5", "INT-6", "INT-7", "INT-8", "INT-9");
+    }
+
+    @Test
+    void trainQueryWithNullConnectionsIsSkipped() throws IOException {
+        TrainsRaw raw = read("trains.json", TrainsRaw.class);
+        raw.getQueries().get(0).setConnections(null);
+
+        assertThat(new TrainNormalizer().normalize(raw)).isEmpty();
+    }
+
+    @Test
+    void missingResponsesNormalizeToNoOptions() {
+        assertThat(new InternalFlightNormalizer().normalize(null)).isEmpty();
+        assertThat(new ExternalFlightNormalizer().normalize(null)).isEmpty();
+        assertThat(new TrainNormalizer().normalize(null)).isEmpty();
+    }
+
+    @Test
+    void responsesWithoutResultListsNormalizeToNoOptions() {
+        assertThat(new InternalFlightNormalizer().normalize(new InternalFlightsRaw())).isEmpty();
+        assertThat(new ExternalFlightNormalizer().normalize(new ExternalFlightsRaw())).isEmpty();
+        assertThat(new TrainNormalizer().normalize(new TrainsRaw())).isEmpty();
+    }
+
+    @Test
+    void oneMalformedOfferFailsTheWholeSource() throws IOException {
+        ExternalFlightsRaw raw = read("external-flights.json", ExternalFlightsRaw.class);
+        ExternalFlightsRaw.Result broken = MockData.record("external-flights.json", "/results",
+                "offer_id", "EXT-1", ExternalFlightsRaw.Result.class, r -> r.put("dep_time", "tomorrow"));
+        raw.setResults(List.of(raw.getResults().get(2), broken));
+
+        // The service turns this into "source unavailable" (see DisruptionServiceTest)
+        assertThatThrownBy(() -> new ExternalFlightNormalizer().normalize(raw))
+                .isInstanceOf(DateTimeParseException.class);
     }
 
     private <T> T read(String file, Class<T> type) throws IOException {

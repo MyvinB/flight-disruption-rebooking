@@ -11,5 +11,12 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    // npm run coverage writes coverage/ (HTML + lcov.info for Sonar)
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['src/**/*.{ts,vue}'],
+      exclude: ['src/**/__tests__/**', 'src/main.ts', 'src/**/*.d.ts'],
+    },
   },
 })
