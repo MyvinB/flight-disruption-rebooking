@@ -1,0 +1,14 @@
+# Challenge material (the mock data lives in backend/src/main/resources/data)
+*.pdf
+/*.json
+
+# Build output
+target/
+dist/
+node_modules/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
