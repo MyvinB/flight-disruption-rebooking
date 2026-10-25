@@ -13,9 +13,10 @@ import java.util.stream.Collectors;
 /**
  * Picks one recommendation per booking.
  *
- * For each booking the options serving its final destination (journey.origin -> journey.destination)
- * whose reported seats fit the whole party are ranked by earliest arrival, then by source priority.
- * The top option is recommended.
+ * For each booking only options serving its final destination (journey.origin -> journey.destination)
+ * whose reported seats fit the whole party are considered.
+ * The recommendation is the one arriving earliest; on equal arrival the cheaper one; on equal price
+ * the preferred source (Lufthansa Group, then other airlines, then trains).
  *
  * Each booking is decided on its own: recommendations to other bookings do not reduce the seats
  * considered, since nobody is booked yet. Competition for seats is resolved at booking time
@@ -24,10 +25,12 @@ import java.util.stream.Collectors;
 @Service
 public class RankingService {
 
+    /** Earliest arrival, then lower price, then source priority. Also the order of the options per route. */
     static final Comparator<Transport> RANKING =
             Comparator.comparing(Transport::getArrEstTime)
+                    .thenComparing(Transport::getAmountInEuro)
                     .thenComparingInt(t -> t.getMode().getPriority());
-
+    
     public List<BookingAllocation> rank(List<DisruptionData.Booking> bookings, List<Transport> options) {
         return bookings.stream()
                 .map(booking -> allocate(booking, options))

@@ -67,7 +67,7 @@ taken, change it with `BACKEND_PORT=8082 FRONTEND_PORT=3001 docker compose up --
 ### Tests
 
 ```bash
-cd backend && ./mvnw test               # adapters, normalizers, sources, ranking, orchestration, endpoint (87 tests)
+cd backend && ./mvnw test               # adapters, normalizers, sources, ranking, orchestration, endpoint (93 tests)
 cd frontend && npm test                 # formatting, API client, every component, app states (45 tests)
 cd frontend && npm run build            # type-check + production build
 ```
@@ -152,7 +152,28 @@ The response then arrives after about 3 s, without train options, and a warning 
   Passengers connecting to Dubai therefore get CGN→DXB options: their BER→DXB flight leaves before any CGN→BER alternative
   arrives. Passengers stranded in Palma get PMI→BER options.
 - **Hard rule:** the option's reported seats must cover the whole party. Families are never split.
-- **Order:** earliest arrival first. On a tie, Lufthansa Group comes before other airlines, then trains.
+- **Order** among the options that fit:
+  1. **Earliest arrival.** The brief asks for arrival time, and for a stranded passenger reaching the destination is
+     what matters most. Arrivals are compared as instants, so 06:05 in Dubai (+04:00) correctly comes before 05:00 in
+     Berlin (+02:00).
+  2. **Lower price**, when two options arrive at the same time. The airline pays for the rebooking, so of two equally
+     fast options the cheaper one is better.
+  3. **Source priority**, when arrival and price are both equal: Lufthansa Group first, then other airlines, then
+     trains. Own-group flights are easier to rebook onto and keep the passenger with the airline.
+- **One option per booking.** Price never outweighs time in the recommendation: an earlier option wins, however much
+  more it costs. Weighing the two is listed under *Future improvements*.
+
+Example, CGN → DXB (the order of `transportOptions['CGN#DXB']`):
+
+| # | Option | Arrives (Dubai time) | Price | Seats |
+|---|---|---|---|---|
+| 1 | EXT-3 Meridian Air via VIE | 22 Jul 06:05 | €424 | 9 |
+| 2 | INT-5 Lufthansa via FRA | 22 Jul 06:10 | €486 | 20 |
+| 3 | EXT-4 Zephyr Jet via ATH | 22 Jul 12:40 | €288 | 26 |
+| 4 | INT-7 Lufthansa | 22 Jul 22:05 | €512 | 9 |
+| 5 | INT-6 Lufthansa | 22 Jul 23:20 | €421 | 33 |
+
+A party of up to 9 gets EXT-3. A party of 10 or more does not fit EXT-3 and gets INT-5.
 
 ### Bookings competing for the same seats
 The data is built so that no single option covers a whole route. For example, about 60 CGN→BER passengers would like EXT-1,
@@ -212,12 +233,30 @@ The disruption data is validated when loaded, so bad data fails with a clear mes
 - **Seat numbers are the availability at search time,** not aircraft capacity.
 - **A missed onward connection** (CGN→BER→DXB) is replaced by a complete CGN→DXB alternative, not by a new BER→DXB leg.
 - **Only one disruption exists in the mock data,** so the endpoint takes no parameters.
+- **Arrival time comes before price.** The brief names arrival time and seats; price is my addition and only decides
+  between options arriving at the same time. A cheaper but later option is never recommended over an earlier one.
+- **Prices are per passenger, all in EUR, and comparable as given.** Taxes, fees, baggage rules and fare conditions are
+  not modelled, and the total for a booking is price × passengers.
+- **Transport priority is my assumption, not from the brief.** The brief does not rank the sources. I assumed this
+  order (`TransportMode`):
+  1. Lufthansa Group flights (`INTERNAL_FLIGHT`)
+  2. Other airlines (`EXTERNAL_FLIGHT`)
+  3. Trains (`TRAIN`)
 
-## Known limitations
-- **No times per leg.** The sources only provide the first departure and the final arrival, so layover durations cannot be shown.
-- **Free-text notes are dropped during normalization:** TRN-2's change in Hannover and EXT-4's overnight layover without a
-  hotel. TRN-2 therefore shows as direct.
-- **The response does not say which sources failed or timed out.** That is only logged.
+  The reasoning is that rebooking onto the group's own flights is usually cheaper and easier for the airline, and
+  keeps the passenger with it. A train is a different mode of travel, so it comes last. The priority is only the
+  **last** criterion: it decides only when two options arrive at the same time for the same price, so a cheaper train
+  arriving at the same time still beats a Lufthansa flight. The real order would be a business decision.
+- **`suggestedPassengers` only counts this disruption, for this request.** It is computed fresh each time and not
+  stored. In reality other cancelled flights, other agents or self-service rebooking may point passengers to the same
+  alternative, so the real demand can be higher than shown. In production the recommendations would be kept in a
+  shared store (database or Redis):
+  - one row per booking, updated rather than added on every new search, so repeated searches never double-count
+  - a stable flight key (flight number + date + cabin) instead of the per-search offer id
+  - an expiry, and removal once the booking is made or declined
+  - a count of the active rows per flight across all disruptions
+
+  It would still be a hint; the seats themselves are checked at booking time.
 
 ## Future improvements
 1. **Booking / confirmation flow.** Let agents override the recommendation from the ranked list, then book with a
@@ -232,7 +271,7 @@ The disruption data is validated when loaded, so bad data fails with a clear mes
      and groups, then booking time. The challenge data has none of these fields, so the default would be the order in
      `disruption.json`, standing in for booking time.
    - **Allocate against remaining seats.** In that order, give each booking the earliest-arriving option that still has
-     room for the whole party, and subtract its seats. Bookings are never split. Ties go by source priority, as today.
+     room for the whole party, and subtract its seats. Bookings are never split. Ties go by price, as today.
    - **Backfill.** If a family of 4 does not fit the last 3 seats on an early option, those seats go to the next smaller
      party instead of flying empty.
    - **Explain the result.** Add a `reason` when a booking did not get the earliest option, e.g.
@@ -244,12 +283,25 @@ The disruption data is validated when loaded, so bad data fails with a clear mes
    Seats are still not reserved: the plan only makes the recommendations fit the available capacity. Agents and passengers
    can still choose another ranked option, and conflicts are still resolved at booking time (item 1). Live seat updates in
    the UI (SSE/WebSocket) would keep the plan current as bookings come in.
-3. **API.** `GET /api/disruptions/{flight}/{date}/options`, since flight numbers repeat daily. Search with a `notBefore` time,
+3. **Price in the decision, not just as a tie-break.** Today an earlier option always wins, even when it costs far more.
+   Two ways to let price count while still showing one option per booking:
+   - **Arrival window:** options arriving within N minutes (e.g. 60) of the earliest one count as equally good, and the
+     cheapest of them is recommended. Easy for an agent to explain: *"it lands within an hour of the earliest and is the
+     cheapest of those."* With this data, 60 minutes changes nothing; 3 hours would move the 24 Cologne → Berlin
+     bookings from EXT-1 (21:50, €189) to the train TRN-1 (00:18, €89.90).
+   - **Cheaper option as a note:** keep the earliest option as the recommendation and add one line of text, e.g.
+     *"TRN-1 arrives 2h 28m later and saves €99.10 per passenger"*, so the agent can offer it if the passenger does not
+     mind waiting. For Dubai that would be EXT-4 (6h 35m later, €136 less); for Palma there is none, since INT-8 is
+     already the cheapest.
+
+   The acceptable extra wait is a business decision. It could depend on route length, or on the EU261 delay thresholds
+   (e.g. 3 hours), above which compensation is due anyway.
+4. **API.** `GET /api/disruptions/{flight}/{date}/options`, since flight numbers repeat daily. Search with a `notBefore` time,
    report per-source status (`sourcesFailed`) in the response, and publish OpenAPI docs.
-4. **Extensibility.** A `TransportSource` interface (`search(Route)`), so Spring injects all sources and a new one, such as
+5. **Extensibility.** A `TransportSource` interface (`search(Route)`), so Spring injects all sources and a new one, such as
    buses, needs no orchestration change.
-5. **Resilience and operations.** Per-source circuit breakers, retries with backoff, metrics and tracing for latency and
+6. **Resilience and operations.** Per-source circuit breakers, retries with backoff, metrics and tracing for latency and
    timeouts, and short-lived caching of search results.
-6. **Model.** Carry leg times, `via` and notes through normalization. Convert the raw DTOs to Java records.
-7. **Delivery.** Push versioned images to a registry from CI, deploy automatically to a staging environment, and promote
+7. **Model.** Carry leg times, `via` and notes through normalization. Convert the raw DTOs to Java records.
+8. **Delivery.** Push versioned images to a registry from CI, deploy automatically to a staging environment, and promote
    to production with a manual approval. Add end-to-end tests (Playwright) against staging.

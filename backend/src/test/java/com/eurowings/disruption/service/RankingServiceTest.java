@@ -27,15 +27,57 @@ class RankingServiceTest {
     private final RankingService rankingService = new RankingService();
 
     @Test
-    void picksEarliestArrivalAndPrefersInternalOnTie() {
-        Transport train = option("T", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10);
-        Transport internal = option("I", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10);
-        Transport later = option("L", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T23:00:00+02:00", 10);
+    void prefersTheEarlierArrivalWhenPricesAreEqual() {
+        Transport later = option("LATER", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:40:00+02:00", 10, "189.00");
+        Transport earlier = option("EARLIER", TransportMode.EXTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:10:00+02:00", 10, "189.00");
+
+        assertThat(rankingService.rank(List.of(booking("A", 1, "CGN", "BER")), List.of(later, earlier)).get(0).transport())
+                .contains(earlier);
+    }
+
+    @Test
+    void picksEarliestArrivalEvenWhenItCostsMore() {
+        Transport early = option("EARLY", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "250.00");
+        Transport cheap = option("CHEAP", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T23:00:00+02:00", 10, "69.90");
 
         List<BookingAllocation> result = rankingService.rank(
-                List.of(booking("A", 2, "CGN", "BER")), List.of(later, train, internal));
+                List.of(booking("A", 2, "CGN", "BER")), List.of(cheap, early));
 
-        assertThat(result.get(0).transport()).contains(internal);
+        assertThat(result.get(0).transport()).contains(early);
+    }
+
+    @Test
+    void prefersTheCheaperOptionWhenArrivalIsTheSame() {
+        Transport internal = option("I", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "214.00");
+        Transport train = option("T", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "89.90");
+
+        List<BookingAllocation> result = rankingService.rank(
+                List.of(booking("A", 2, "CGN", "BER")), List.of(internal, train));
+
+        // Price comes before the source: the cheaper train wins
+        assertThat(result.get(0).transport()).contains(train);
+    }
+
+    @Test
+    void prefersLufthansaGroupThenOtherAirlinesThenTrainsOnSameArrivalAndPrice() {
+        Transport train = option("T", TransportMode.TRAIN, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "189.00");
+        Transport external = option("E", TransportMode.EXTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "189.00");
+        Transport internal = option("I", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "189.00");
+
+        assertThat(rankingService.rank(List.of(booking("A", 1, "CGN", "BER")), List.of(train, external, internal))
+                .get(0).transport()).contains(internal);
+        assertThat(rankingService.rank(List.of(booking("A", 1, "CGN", "BER")), List.of(train, external))
+                .get(0).transport()).contains(external);
+    }
+
+    @Test
+    void comparesPricesByValueNotScale() {
+        Transport external = option("E", TransportMode.EXTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "189.0");
+        Transport internal = option("I", TransportMode.INTERNAL_FLIGHT, "CGN", "BER", "2026-07-21T21:00:00+02:00", 10, "189.00");
+
+        // 189.0 and 189.00 are the same price, so the source decides
+        assertThat(rankingService.rank(List.of(booking("X", 1, "CGN", "BER")), List.of(external, internal))
+                .get(0).transport()).contains(internal);
     }
 
     @Test
@@ -190,11 +232,17 @@ class RankingServiceTest {
 
     private static Transport option(String id, TransportMode mode, String origin, String destination,
                                     String arrival, int seats) {
+        return option(id, mode, origin, destination, arrival, seats, "100.00");
+    }
+
+    private static Transport option(String id, TransportMode mode, String origin, String destination,
+                                    String arrival, int seats, String priceEur) {
         OffsetDateTime arr = OffsetDateTime.parse(arrival);
+        BigDecimal price = new BigDecimal(priceEur);
         return new Transport() {
             @Override public String getOfferId() { return id; }
             @Override public TransportMode getMode() { return mode; }
-            @Override public BigDecimal getAmountInEuro() { return BigDecimal.TEN; }
+            @Override public BigDecimal getAmountInEuro() { return price; }
             @Override public int getAvailableSeats() { return seats; }
             @Override public OffsetDateTime getDepEstTime() { return arr.minusHours(2); }
             @Override public OffsetDateTime getArrEstTime() { return arr; }

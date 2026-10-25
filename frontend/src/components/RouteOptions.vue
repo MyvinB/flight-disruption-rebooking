@@ -10,7 +10,7 @@ defineProps<{ transportOptions: Record<string, TransportOption[]> }>()
   <section>
     <h2>All options per route</h2>
     <p class="muted small">
-      Ranked by earliest arrival. "Recommended to" counts the passengers this option is recommended for;
+      Ranked by earliest arrival, then lower price, then source. "Recommended to" counts the passengers this option is recommended for;
       nobody is booked yet, so it can exceed the available seats.
     </p>
 
