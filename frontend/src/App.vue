@@ -29,7 +29,7 @@ onMounted(load)
 <template>
   <main>
     <div class="toolbar">
-      <span class="muted small">Disruption options finder</span>
+      <span class="muted small">DISRUPTION OPTIONS FINDER</span>
       <button :disabled="loading" @click="load">{{ loading ? 'Searching…' : 'Refresh' }}</button>
     </div>
 

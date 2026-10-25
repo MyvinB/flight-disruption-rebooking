@@ -81,8 +81,11 @@ jobs:
       FRONTEND_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
     steps:
       - name: Trigger Render deploys
-        # Skipped until both deploy hooks are stored as repository secrets
-        if: env.BACKEND_HOOK != '' && env.FRONTEND_HOOK != ''
         run: |
+          if [ -z "$BACKEND_HOOK" ] || [ -z "$FRONTEND_HOOK" ]; then
+            echo "::error::DEPLOY was requested, but the secrets RENDER_DEPLOY_HOOK_BACKEND and RENDER_DEPLOY_HOOK_FRONTEND are not set"
+            exit 1
+          fi
           curl --fail --silent --show-error --request POST "$BACKEND_HOOK"
           curl --fail --silent --show-error --request POST "$FRONTEND_HOOK"
+          echo "Render deploys triggered; follow them in each service's Events tab"

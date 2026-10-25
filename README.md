@@ -104,7 +104,7 @@ One-time setup:
 3. On each service, copy **Settings → Deploy Hook**. In GitHub, add the two hooks under **Settings → Secrets and
    variables → Actions** as `RENDER_DEPLOY_HOOK_BACKEND` and `RENDER_DEPLOY_HOOK_FRONTEND`.
 
-Until both secrets exist, the deploy job is skipped and CI still passes.
+A `DEPLOY` commit fails the deploy job with a clear error until both secrets exist; other commits are not affected.
 
 **Free plan:** services sleep after about 15 minutes without traffic. The first request afterwards takes about a minute
 while they wake up. If the UI shows an error then, *Try again* works once the backend is up. Open the site a minute
