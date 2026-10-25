@@ -67,9 +67,12 @@ jobs:
         run: docker compose down
 
   deploy:
-    # Only main is deployed, and only after tests and the Docker smoke test passed
+    # Runs only for a push to main whose latest commit message contains DEPLOY,
+    # and only after the tests and the Docker smoke test passed
     needs: [build, docker]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: >-
+      github.event_name == 'push' && github.ref == 'refs/heads/main'
+      && contains(github.event.head_commit.message, 'DEPLOY')
     runs-on: ubuntu-latest
     environment: production
     concurrency: production

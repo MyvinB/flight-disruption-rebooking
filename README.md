@@ -7,6 +7,10 @@ The app searches three alternative sources **in parallel** (Lufthansa Group flig
 and converts their different formats into **one model**. It then picks **one recommended alternative per booking**
 and shows the result in a simple web UI.
 
+**Live demo:** https://disruption-frontend.onrender.com
+(API: https://disruption-backend.onrender.com/api/disruption-options). It runs on Render's free plan, so the first
+visit after a quiet period takes about a minute while the services wake up.
+
 ```
 Vue UI  ──GET /api/disruption-options──►  Spring Boot
                                             ├─ derive routes from the bookings (CGN→BER, CGN→DXB, PMI→BER)
@@ -68,6 +72,12 @@ taken, change it with `BACKEND_PORT=8082 FRONTEND_PORT=3001 docker compose up --
 
 Both services run on [Render](https://render.com) from their Dockerfiles, defined in `render.yaml`:
 
+| Service | URL |
+|---|---|
+| Frontend (UI) | https://disruption-frontend.onrender.com |
+| Backend (API) | https://disruption-backend.onrender.com/api/disruption-options |
+| Backend health | https://disruption-backend.onrender.com/actuator/health |
+
 ```
 Browser → disruption-frontend.onrender.com  (nginx: UI)
             └── /api/* → disruption-backend.onrender.com  (Spring Boot)
@@ -76,13 +86,21 @@ Browser → disruption-frontend.onrender.com  (nginx: UI)
 The frontend's nginx forwards `/api` to the backend's public URL (`BACKEND_URL`), so the browser talks to one origin.
 Both containers listen on the `PORT` that Render sets.
 
-**Deploys come from CI, not from every push.** The `deploy` job in `.github/workflows/ci.yml` runs on `main` only
-after the tests and the Docker smoke test pass. It calls each service's Render deploy hook.
+**Deploys come from CI, and only when asked for.** The `deploy` job in `.github/workflows/ci.yml` runs when a push to
+`main` has `DEPLOY` in its latest commit message, and only after the tests and the Docker smoke test pass. It calls
+each service's Render deploy hook. Every other push is tested but not deployed.
+
+```bash
+git commit -m "Show original journey DEPLOY"         # tested and deployed
+git commit --allow-empty -m "DEPLOY"                 # redeploy without changes
+```
 
 One-time setup:
 1. In Render: **New → Blueprint**, select this repository. Render reads `render.yaml` and creates both services.
-2. When asked for `BACKEND_URL`, enter the backend's URL, e.g. `https://disruption-backend.onrender.com`. Render shows
-   the exact URL on the backend's page. If it differs, update `BACKEND_URL` on the frontend service and redeploy it.
+2. When asked for `BACKEND_URL`, enter the **backend's** URL, here `https://disruption-backend.onrender.com`. Render
+   shows the exact URL on the backend's page. If `BACKEND_URL` points to the frontend instead, `/api` calls loop back to
+   nginx and fail with `508 Loop Detected`. A missing `https://` or a trailing slash is corrected at startup, and the
+   frontend logs `Forwarding /api to …` so the value in use is easy to check.
 3. On each service, copy **Settings → Deploy Hook**. In GitHub, add the two hooks under **Settings → Secrets and
    variables → Actions** as `RENDER_DEPLOY_HOOK_BACKEND` and `RENDER_DEPLOY_HOOK_FRONTEND`.
 
