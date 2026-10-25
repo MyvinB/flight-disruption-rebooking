@@ -1,5 +1,5 @@
 server {
-    listen 80;
+    listen ${PORT};
     server_name _;
 
     root /usr/share/nginx/html;
@@ -8,11 +8,14 @@ server {
     # Same origin for UI and API, like the Vite dev proxy: no CORS needed in the browser
     location /api/ {
         proxy_pass ${BACKEND_URL};
-        proxy_set_header Host $host;
+        # Host stays the backend's own host (nginx default): Render routes requests to a service by Host
+        proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        # Above the backend's 3 s source budget
-        proxy_read_timeout 10s;
+        # Send the backend's name in the TLS handshake (SNI) when BACKEND_URL is https
+        proxy_ssl_server_name on;
+        # A sleeping free-tier backend needs up to about a minute to wake up
+        proxy_read_timeout 90s;
     }
 
     # Hashed bundles never change, so they can be cached for long

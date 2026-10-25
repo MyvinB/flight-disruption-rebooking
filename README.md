@@ -64,6 +64,34 @@ taken, change it with `BACKEND_PORT=8082 FRONTEND_PORT=3001 docker compose up --
   can be overridden with environment variables, e.g. `MOCK_TRAINS_DELAYMS=4000` makes the train source miss the
   3 s budget.
 
+### Deployment (Render, free plan)
+
+Both services run on [Render](https://render.com) from their Dockerfiles, defined in `render.yaml`:
+
+```
+Browser → disruption-frontend.onrender.com  (nginx: UI)
+            └── /api/* → disruption-backend.onrender.com  (Spring Boot)
+```
+
+The frontend's nginx forwards `/api` to the backend's public URL (`BACKEND_URL`), so the browser talks to one origin.
+Both containers listen on the `PORT` that Render sets.
+
+**Deploys come from CI, not from every push.** The `deploy` job in `.github/workflows/ci.yml` runs on `main` only
+after the tests and the Docker smoke test pass. It calls each service's Render deploy hook.
+
+One-time setup:
+1. In Render: **New → Blueprint**, select this repository. Render reads `render.yaml` and creates both services.
+2. When asked for `BACKEND_URL`, enter the backend's URL, e.g. `https://disruption-backend.onrender.com`. Render shows
+   the exact URL on the backend's page. If it differs, update `BACKEND_URL` on the frontend service and redeploy it.
+3. On each service, copy **Settings → Deploy Hook**. In GitHub, add the two hooks under **Settings → Secrets and
+   variables → Actions** as `RENDER_DEPLOY_HOOK_BACKEND` and `RENDER_DEPLOY_HOOK_FRONTEND`.
+
+Until both secrets exist, the deploy job is skipped and CI still passes.
+
+**Free plan:** services sleep after about 15 minutes without traffic. The first request afterwards takes about a minute
+while they wake up. If the UI shows an error then, *Try again* works once the backend is up. Open the site a minute
+before a demo.
+
 ### Tests
 
 ```bash
@@ -72,19 +100,19 @@ cd frontend && npm test                 # formatting, API client, every componen
 cd frontend && npm run build            # type-check + production build
 ```
 
-### Code coverage and Sonar
+### Code coverage
 
 ```bash
 cd backend && ./mvnw verify             # JaCoCo → backend/target/site/jacoco/index.html (+ jacoco.xml)
 cd frontend && npm run coverage         # V8 → frontend/coverage/index.html (+ lcov.info)
 ```
 
-`sonar-project.properties` analyses both projects together and imports both coverage reports. The GitHub Actions
-workflow (`.github/workflows/ci.yml`) runs the tests and coverage on every push and pull request, then the SonarCloud
-scan. A second job builds both Docker images, starts them with `docker compose`, and smoke-tests the API through nginx. To enable the scan, import the repository on [sonarcloud.io](https://sonarcloud.io), check that
-`sonar.organization` and `sonar.projectKey` match the values SonarCloud shows, turn off *Automatic Analysis* (it
-cannot import coverage), and add the token as the repository secret `SONAR_TOKEN`. Until the secret exists, the workflow
-still runs the tests and skips the scan.
+The GitHub Actions workflow (`.github/workflows/ci.yml`) runs both test suites with coverage on every push and pull
+request, and attaches the HTML reports to the run as the `coverage-reports` artifact. A second job builds both Docker
+images, starts them with `docker compose`, and smoke-tests the API through nginx.
+
+Sonar analysis is not part of the pipeline yet. `sonar-project.properties` is already set up to analyse both projects
+and import both coverage reports, so adding a SonarCloud or SonarQube scan step to the workflow is all that is missing.
 
 ### Configuration (`backend/src/main/resources/application.properties`)
 

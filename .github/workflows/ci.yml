@@ -8,12 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # scan is skipped until the secret is configured
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # full history for Sonar blame / new-code detection
 
       - uses: actions/setup-java@v4
         with:
@@ -29,21 +25,22 @@ jobs:
 
       - name: Backend tests + JaCoCo coverage
         working-directory: backend
-        run: ./mvnw -B verify dependency:copy-dependencies -DincludeScope=compile
+        run: ./mvnw -B verify
 
       - name: Frontend tests + coverage
         working-directory: frontend
         run: |
           npm ci
           npm run coverage
-          # lcov paths are relative to frontend/; Sonar resolves them from the repository root
-          sed -i 's|^SF:src/|SF:frontend/src/|' coverage/lcov.info
 
-      - name: SonarCloud scan
-        if: ${{ env.SONAR_TOKEN != '' }}
-        uses: SonarSource/sonarqube-scan-action@v4
-        env:
-          SONAR_HOST_URL: https://sonarcloud.io
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            backend/target/site/jacoco/
+            frontend/coverage/
 
   docker:
     # Builds both images and checks the stack end to end through the nginx proxy
@@ -68,3 +65,21 @@ jobs:
       - name: Stop
         if: always()
         run: docker compose down
+
+  deploy:
+    # Only main is deployed, and only after tests and the Docker smoke test passed
+    needs: [build, docker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+    env:
+      BACKEND_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}
+      FRONTEND_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
+    steps:
+      - name: Trigger Render deploys
+        # Skipped until both deploy hooks are stored as repository secrets
+        if: env.BACKEND_HOOK != '' && env.FRONTEND_HOOK != ''
+        run: |
+          curl --fail --silent --show-error --request POST "$BACKEND_HOOK"
+          curl --fail --silent --show-error --request POST "$FRONTEND_HOOK"

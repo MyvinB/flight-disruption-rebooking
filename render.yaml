@@ -1,0 +1,26 @@
+# Render Blueprint: both services from their Dockerfiles, on the free plan.
+# Create them once in the Render dashboard: New → Blueprint → select this repository.
+# Deploys are triggered by the CI pipeline (deploy hooks) after the tests pass, not on every push.
+services:
+  - type: web
+    name: disruption-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /actuator/health
+    autoDeploy: false
+
+  - type: web
+    name: disruption-frontend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    healthCheckPath: /
+    autoDeploy: false
+    envVars:
+      # Public URL of the backend service, e.g. https://disruption-backend.onrender.com
+      # (shown on the backend's page in the dashboard; asked for when the Blueprint is created)
+      - key: BACKEND_URL
+        sync: false
