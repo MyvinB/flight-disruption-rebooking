@@ -1,0 +1,26 @@
+# Runs the whole application: docker compose up --build
+#   UI  → http://localhost:3000
+#   API → http://localhost:8080/api/disruption-options
+# Host ports can be changed if they are taken, e.g. BACKEND_PORT=8082 docker compose up --build
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      # Overrides application.properties (Spring relaxed binding: dots → _, dashes dropped),
+      # e.g. MOCK_TRAINS_DELAYMS=4000 makes the train source miss the 3 s budget
+      MOCK_TRAINS_DELAYMS: "1500"
+      DISRUPTION_SOURCES_TIMEOUTMS: "3000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    environment:
+      BACKEND_URL: http://backend:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

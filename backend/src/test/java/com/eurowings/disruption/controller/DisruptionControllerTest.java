@@ -104,4 +104,17 @@ class DisruptionControllerTest {
         mockMvc.perform(get("/disruption-options")).andExpect(status().isNotFound());
         mockMvc.perform(get("/api/disruption-option")).andExpect(status().isNotFound());
     }
+
+    @Test
+    void exposesHealthForContainerChecks() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("UP"));
+    }
+
+    @Test
+    void doesNotExposeOtherActuatorEndpoints() throws Exception {
+        mockMvc.perform(get("/actuator/env")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/actuator/beans")).andExpect(status().isNotFound());
+    }
 }

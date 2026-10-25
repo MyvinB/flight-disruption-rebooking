@@ -1,4 +1,4 @@
-name: Build, test and Sonar analysis
+name: CI
 
 on:
   push:
@@ -44,3 +44,27 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_HOST_URL: https://sonarcloud.io
+
+  docker:
+    # Builds both images and checks the stack end to end through the nginx proxy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and start
+        run: docker compose up --build --detach --wait --wait-timeout 180
+
+      - name: Smoke test
+        run: |
+          curl --fail --silent http://localhost:3000/ | grep -q '<div id="app">'
+          curl --fail --silent http://localhost:3000/api/disruption-options \
+            | jq -e '(.recommendations | length) == 48'
+
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop
+        if: always()
+        run: docker compose down

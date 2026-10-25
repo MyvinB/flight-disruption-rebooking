@@ -47,6 +47,23 @@ The API can also be called directly:
 curl http://localhost:8080/api/disruption-options
 ```
 
+### With Docker
+
+```bash
+docker compose up --build
+```
+
+UI at http://localhost:3000, API at http://localhost:8080/api/disruption-options. Only Docker is needed. If a port is
+taken, change it with `BACKEND_PORT=8082 FRONTEND_PORT=3001 docker compose up --build`.
+
+- **`backend/Dockerfile`:** multi-stage build. Maven packages the jar, and it runs on a JRE-only Alpine image as a
+  non-root user. Its health check uses `/actuator/health`, the only actuator endpoint exposed.
+- **`frontend/Dockerfile`:** multi-stage build. Node builds the bundle, and nginx serves it and forwards `/api` to
+  `BACKEND_URL` (default `http://backend:8080`). The browser sees one origin, as with the Vite dev proxy.
+- **`docker-compose.yml`:** starts the frontend once the backend is healthy. Settings from `application.properties`
+  can be overridden with environment variables, e.g. `MOCK_TRAINS_DELAYMS=4000` makes the train source miss the
+  3 s budget.
+
 ### Tests
 
 ```bash
@@ -63,8 +80,8 @@ cd frontend && npm run coverage         # V8 → frontend/coverage/index.html (+
 ```
 
 `sonar-project.properties` analyses both projects together and imports both coverage reports. The GitHub Actions
-workflow (`.github/workflows/sonar.yml`) runs the tests and coverage on every push and pull request, then the SonarCloud
-scan. To enable the scan, import the repository on [sonarcloud.io](https://sonarcloud.io), check that
+workflow (`.github/workflows/ci.yml`) runs the tests and coverage on every push and pull request, then the SonarCloud
+scan. A second job builds both Docker images, starts them with `docker compose`, and smoke-tests the API through nginx. To enable the scan, import the repository on [sonarcloud.io](https://sonarcloud.io), check that
 `sonar.organization` and `sonar.projectKey` match the values SonarCloud shows, turn off *Automatic Analysis* (it
 cannot import coverage), and add the token as the repository secret `SONAR_TOKEN`. Until the secret exists, the workflow
 still runs the tests and skips the scan.
@@ -234,5 +251,5 @@ The disruption data is validated when loaded, so bad data fails with a clear mes
 5. **Resilience and operations.** Per-source circuit breakers, retries with backoff, metrics and tracing for latency and
    timeouts, and short-lived caching of search results.
 6. **Model.** Carry leg times, `via` and notes through normalization. Convert the raw DTOs to Java records.
-7. **Delivery.** Dockerfiles and `docker-compose`, CI running both test suites on every push, end-to-end tests
-   (Playwright), and deployment as a single container serving the built UI from Spring Boot.
+7. **Delivery.** Push versioned images to a registry from CI, deploy automatically to a staging environment, and promote
+   to production with a manual approval. Add end-to-end tests (Playwright) against staging.
